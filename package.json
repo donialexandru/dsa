@@ -1,0 +1,27 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:problem": "vitest run --reporter=verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/donialexandru/dsa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/donialexandru/dsa/issues"
+  },
+  "homepage": "https://github.com/donialexandru/dsa#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}

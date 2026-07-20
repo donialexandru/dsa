@@ -1,3 +1,3 @@
-export function solution() {
-// TODO: implement
+export function solution(n: number): number {
+  // TODO: implement
 }

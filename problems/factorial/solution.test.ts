@@ -18,3 +18,4 @@ describe("factorial", () => {
     expect(solution(3)).toEqual(6);
     expect(solution(4)).toEqual(24);
   });
+});

@@ -8,5 +8,6 @@
 ## Constraints
 
 ## Complexity Target
-- Time:
-- Space:
+
+- Time: nlogn
+- Space: N

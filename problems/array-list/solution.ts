@@ -1,3 +1,3 @@
-class ArrayList {
+export class ArrayList {
   //code goes here
 }

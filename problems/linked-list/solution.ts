@@ -1,10 +1,10 @@
-export default class SinglyLinkedList<T> {
+export class SinglyLinkedList<T> {
   constructor() {}
 
-  prepend(item: T): void {}
-  insertAt(item: T, idx: number): void {}
-  append(item: T): void {}
-  remove(item: T): T | undefined {}
-  get(idx: number): T | undefined {}
-  removeAt(idx: number): T | undefined {}
+  prepend(value: T): void {}
+  append(value: T): void {}
+  insertAt(value: T, index: number): void {}
+  get(index: number): T | undefined {}
+  remove(value: T): T | undefined {}
+  removeAt(index: number): T | undefined {}
 }

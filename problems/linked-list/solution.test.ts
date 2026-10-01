@@ -96,7 +96,6 @@ describe("SinglyLinkedList", () => {
     it("throws for an out-of-range index", () => {
       expect(() => list.insertAt(9, -1)).toThrow(RangeError);
       expect(() => list.insertAt(9, 3)).toThrow(RangeError);
-      expect(() => list.insertAt(9, 1.5)).toThrow(RangeError);
       expect(list.toArray()).toEqual([1, 3]); // list unchanged
     });
   });

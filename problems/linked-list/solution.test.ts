@@ -1,6 +1,15 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { Node, SinglyLinkedList } from "./solution.ts";
 
+/** Test helper: read every item through the public API (length + get). */
+function toArray<T>(list: SinglyLinkedList<T>): T[] {
+  const result: T[] = [];
+  for (let i = 0; i < list.length; i++) {
+    result.push(list.get(i) as T);
+  }
+  return result;
+}
+
 describe("Node", () => {
   it("stores a value and starts with next set to null", () => {
     const node = new Node(5);
@@ -20,7 +29,7 @@ describe("SinglyLinkedList", () => {
   describe("empty list", () => {
     it("has length 0 and no items", () => {
       expect(list.length).toBe(0);
-      expect(list.toArray()).toEqual([]);
+      expect(toArray(list)).toEqual([]);
       expect(list.get(0)).toBeUndefined();
     });
 
@@ -36,7 +45,7 @@ describe("SinglyLinkedList", () => {
       list.append(2);
       list.append(3);
 
-      expect(list.toArray()).toEqual([1, 2, 3]);
+      expect(toArray(list)).toEqual([1, 2, 3]);
       expect(list.length).toBe(3);
     });
   });
@@ -47,7 +56,7 @@ describe("SinglyLinkedList", () => {
       list.prepend(2);
       list.prepend(3);
 
-      expect(list.toArray()).toEqual([3, 2, 1]);
+      expect(toArray(list)).toEqual([3, 2, 1]);
       expect(list.length).toBe(3);
     });
 
@@ -56,7 +65,7 @@ describe("SinglyLinkedList", () => {
       list.prepend(1);
       list.append(3);
 
-      expect(list.toArray()).toEqual([1, 2, 3]);
+      expect(toArray(list)).toEqual([1, 2, 3]);
     });
   });
 
@@ -69,34 +78,34 @@ describe("SinglyLinkedList", () => {
     it("inserts in the middle", () => {
       list.insertAt(2, 1);
 
-      expect(list.toArray()).toEqual([1, 2, 3]);
+      expect(toArray(list)).toEqual([1, 2, 3]);
       expect(list.length).toBe(3);
     });
 
     it("inserts at the front with index 0", () => {
       list.insertAt(0, 0);
 
-      expect(list.toArray()).toEqual([0, 1, 3]);
+      expect(toArray(list)).toEqual([0, 1, 3]);
     });
 
     it("inserts at the end with index === length", () => {
       list.insertAt(4, 2);
       list.append(5); // tail must point to the inserted node
 
-      expect(list.toArray()).toEqual([1, 3, 4, 5]);
+      expect(toArray(list)).toEqual([1, 3, 4, 5]);
     });
 
     it("inserts into an empty list at index 0", () => {
       const empty = new SinglyLinkedList<string>();
       empty.insertAt("a", 0);
 
-      expect(empty.toArray()).toEqual(["a"]);
+      expect(toArray(empty)).toEqual(["a"]);
     });
 
-    it("throws for an out-of-range index", () => {
-      expect(() => list.insertAt(9, -1)).toThrow(RangeError);
-      expect(() => list.insertAt(9, 3)).toThrow(RangeError);
-      expect(list.toArray()).toEqual([1, 3]); // list unchanged
+    it("return undefined for an out-of-range index", () => {
+      expect(list.insertAt(9, -1)).toBeUndefined();
+      expect(list.insertAt(9, 3)).toBeUndefined();
+      expect(toArray(list)).toEqual([1, 3]); // list unchanged
     });
   });
 
@@ -128,32 +137,32 @@ describe("SinglyLinkedList", () => {
 
     it("removes an item from the middle and returns it", () => {
       expect(list.remove(2)).toBe(2);
-      expect(list.toArray()).toEqual([1, 3]);
+      expect(toArray(list)).toEqual([1, 3]);
       expect(list.length).toBe(2);
     });
 
     it("removes the first item", () => {
       expect(list.remove(1)).toBe(1);
-      expect(list.toArray()).toEqual([2, 3]);
+      expect(toArray(list)).toEqual([2, 3]);
     });
 
     it("removes the last item and updates the tail", () => {
       expect(list.remove(3)).toBe(3);
       list.append(4); // would be lost if tail still pointed at 3
 
-      expect(list.toArray()).toEqual([1, 2, 4]);
+      expect(toArray(list)).toEqual([1, 2, 4]);
     });
 
     it("removes only the first match", () => {
       list.append(2);
       list.remove(2);
 
-      expect(list.toArray()).toEqual([1, 3, 2]);
+      expect(toArray(list)).toEqual([1, 3, 2]);
     });
 
     it("returns undefined and changes nothing when the value is missing", () => {
       expect(list.remove(99)).toBeUndefined();
-      expect(list.toArray()).toEqual([1, 2, 3]);
+      expect(toArray(list)).toEqual([1, 2, 3]);
       expect(list.length).toBe(3);
     });
   });
@@ -167,20 +176,20 @@ describe("SinglyLinkedList", () => {
 
     it("removes the item at the given index and returns it", () => {
       expect(list.removeAt(1)).toBe(2);
-      expect(list.toArray()).toEqual([1, 3]);
+      expect(toArray(list)).toEqual([1, 3]);
       expect(list.length).toBe(2);
     });
 
     it("removes the first item", () => {
       expect(list.removeAt(0)).toBe(1);
-      expect(list.toArray()).toEqual([2, 3]);
+      expect(toArray(list)).toEqual([2, 3]);
     });
 
     it("removes the last item and updates the tail", () => {
       expect(list.removeAt(2)).toBe(3);
       list.append(4);
 
-      expect(list.toArray()).toEqual([1, 2, 4]);
+      expect(toArray(list)).toEqual([1, 2, 4]);
     });
 
     it("returns undefined for an out-of-range index", () => {
@@ -197,10 +206,10 @@ describe("SinglyLinkedList", () => {
     list.remove(2);
 
     expect(list.length).toBe(0);
-    expect(list.toArray()).toEqual([]);
+    expect(toArray(list)).toEqual([]);
 
     list.append(5);
     list.prepend(4);
-    expect(list.toArray()).toEqual([4, 5]);
+    expect(toArray(list)).toEqual([4, 5]);
   });
 });
